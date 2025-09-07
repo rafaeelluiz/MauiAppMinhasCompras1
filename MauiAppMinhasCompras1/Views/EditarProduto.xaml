@@ -4,19 +4,19 @@
              x:Class="MauiAppMinhasCompras1.Views.EditarProduto"
              Title="{Binding Descicao}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Salvar" />
+        <ToolbarItem Text="Salvar" Clicked="ToolbarItem_Clicked"/>
         </ContentPage.ToolbarItems>
 
         <VerticalStackLayout Spacing="10" Padding="10">
 
             <Label Text="Descrição do produto: "/>
-            <Entry x:Name="txt_descricao" Text="{Binding Descicao}"/>
+            <Entry x:Name="txt_descricao" Text="{Binding Descricao}"/>
 
             <Label Text="Quantidade: "/>
             <Entry x:Name="txt_quantidade" Text="{Binding Quantidade}"/>
 
             <Label Text="Preço unitário: "/>
-            <Entry x:Name="txt_preco" Keyboard="Numeric"/>
+            <Entry x:Name="txt_preco" Text="{Binding Preco} " Keyboard="Numeric"/>
         </VerticalStackLayout>
 
 </ContentPage>

@@ -1,4 +1,4 @@
-using MauiAppMinhasCompras1.Models;
+using MauiAppMinhasCompras.Models;
 using System.Collections.ObjectModel;
 
 namespace MauiAppMinhasCompras1.Views;
@@ -17,6 +17,7 @@ public partial class ListaProduto : ContentPage
     {
         try
         {
+            lista.Clear();
             List<Produto> tmp = await App.Db.GetAll();
 
             tmp.ForEach(i => lista.Add(i));
@@ -94,7 +95,7 @@ public partial class ListaProduto : ContentPage
 
             bool confirm = await DisplayAlert(
                 "Remover", $"Deseja remover o item {p.Descricao}?", "Sim", "Não");
-
+            //confirmação da deletação e remoção da observablecollection//
             if (confirm)
             {
                 await App.Db.Delete(p.Id);
@@ -109,11 +110,12 @@ public partial class ListaProduto : ContentPage
         }
 
     }
-
+    //editar produto 
     private void lst_produtos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
         try
         {
+            //seleciona o item como produto 
             Produto p = e.SelectedItem as Produto;
 
             Navigation.PushAsync(new Views.EditarProduto

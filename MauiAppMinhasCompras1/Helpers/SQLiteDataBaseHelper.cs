@@ -1,4 +1,4 @@
-﻿using MauiAppMinhasCompras1.Models;
+﻿using MauiAppMinhasCompras.Models;
 using SQLite;
 
 namespace MauiAppMinhasCompras1.Helpers

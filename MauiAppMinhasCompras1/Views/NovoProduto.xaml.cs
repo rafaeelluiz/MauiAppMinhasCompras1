@@ -1,5 +1,4 @@
-using MauiAppMinhasCompras1.Models;
-
+using MauiAppMinhasCompras.Models;
 namespace MauiAppMinhasCompras1.Views;
 
 public partial class NovoProduto : ContentPage
