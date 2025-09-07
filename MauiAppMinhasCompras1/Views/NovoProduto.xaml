@@ -13,10 +13,10 @@
         <Entry x:Name="txt_descricao"/>
 
         <Label Text="Quantidade: "/>
-        <Entry Text="txt_quantidade" Keyboard="Numeric"/>
+        <Entry x:Name="txt_quantidade" Keyboard="Numeric"/>
 
         <Label Text="Preço unitário: "/>
-        <Entry Text="txt_preco" Keyboard="Numeric"/>
+        <Entry x:Name="txt_preco" Keyboard="Numeric"/>
 
        
     </VerticalStackLayout>

@@ -4,12 +4,12 @@ namespace MauiAppMinhasCompras1.Views;
 
 public partial class NovoProduto : ContentPage
 {
-	public NovoProduto()
+    public NovoProduto()
 	{
 		InitializeComponent();
 	}
 
-    private async Task ToolbarItem_Clicked(object sender, EventArgs e)
+    private async void ToolbarItem_Clicked(object sender, EventArgs e)
     {
 		try
 		{
