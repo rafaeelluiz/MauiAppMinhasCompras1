@@ -6,6 +6,10 @@ namespace MauiAppMinhasCompras1.Views;
 public partial class ListaProduto : ContentPage
 {
     ObservableCollection<Produto> lista = new ObservableCollection<Produto>();
+    private object minhaCollectionView;
+
+    public IEnumerable<object> Produtos { get; private set; }
+
     public ListaProduto()
     {
         InitializeComponent();
@@ -54,6 +58,8 @@ public partial class ListaProduto : ContentPage
 
             string q = e.NewTextValue;
 
+            lst_produtos.IsRefreshing = true;
+
             lista.Clear();
 
             List<Produto> tmp = await App.Db.Search(q);
@@ -64,6 +70,8 @@ public partial class ListaProduto : ContentPage
         {
 
             await DisplayAlert("Ops", ex.Message, "OK");
+        }finally
+{           lst_produtos.IsRefreshing = false;
         }
     }
 
@@ -72,7 +80,8 @@ public partial class ListaProduto : ContentPage
     {
         try
         {
-            double soma = lista.Sum(i => i.Total);
+            var produtosExibidos = lst_produtos.ItemsSource as IEnumerable<Produto>;
+            double soma = produtosExibidos?.Sum(i => i.Total) ?? 0;
 
             string msg = $"O total é {soma:C}";
             DisplayAlert("Total dos podutos", msg, "OK");
@@ -127,6 +136,53 @@ public partial class ListaProduto : ContentPage
         catch (Exception ex)
         {
             DisplayAlert("Ops", ex.Message, "OK");
+        }
+    }
+
+    private async void ToolbarItem_Clicked_2(object sender, EventArgs e)
+    {
+        try
+        {
+            pckFiltroCategoria.IsVisible = true;
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Ops", ex.Message, "OK");
+        }
+    }
+
+    private void pckFiltroCategoria_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        var categoriaSelecionada = pckFiltroCategoria.SelectedItem?.ToString();
+        if (categoriaSelecionada == "Todos")
+        {
+            lst_produtos.ItemsSource = lista; // Mostra todos os itens
+        }
+        else if (!string.IsNullOrEmpty(categoriaSelecionada))
+        {
+            var filtrado = lista.Where(p => p.Categoria == categoriaSelecionada).ToList();
+            lst_produtos.ItemsSource = filtrado;
+        }
+        pckFiltroCategoria.IsVisible = false; // Esconde o Picker após selecionar
+    }
+
+    private async void lst_produtos_Refreshing(object sender, EventArgs e)
+    {
+        try
+        {
+            lista.Clear();
+            List<Produto> tmp = await App.Db.GetAll();
+
+            tmp.ForEach(i => lista.Add(i));
+        }
+        catch (Exception ex)
+        {
+
+            await DisplayAlert("Ops", ex.Message, "OK");
+        }
+        finally
+        {
+            lst_produtos.IsRefreshing = false;
         }
     }
 }

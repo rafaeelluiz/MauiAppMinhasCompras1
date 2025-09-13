@@ -7,19 +7,47 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Somar" Clicked="ToolbarItem_Clicked_1"/>
         <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked"/>
+        <ToolbarItem Text="Selecionar categoria" Clicked="ToolbarItem_Clicked_2"/>
     </ContentPage.ToolbarItems>
     
-    <VerticalStackLayout>
+    <StackLayout>
         <SearchBar x:Name="txt_search" Placeholder="Busca de produtos" TextChanged="txt_search_TextChanged"/>
-        <ListView x:Name="lst_produtos" ItemSelected="lst_produtos_ItemSelected">
+        <Picker x:Name="pckFiltroCategoria"
+                Title="Selecione a categoria"
+                IsVisible="False"
+                SelectedIndexChanged="pckFiltroCategoria_SelectedIndexChanged">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Todos</x:String>
+                    <x:String>Bebês</x:String>
+                    <x:String>Bebidas</x:String>
+                    <x:String>Congelados</x:String>
+                    <x:String>Doces</x:String>
+                    <x:String>Frescos</x:String>
+                    <x:String>Grãos</x:String>
+                    <x:String>Higiene Pessoal</x:String>
+                    <x:String>Limpeza doméstica</x:String>
+                    <x:String>Padaria</x:String>
+                    <x:String>Pets</x:String>
+                    <x:String>Proteínas</x:String>
+                    <x:String>Saúde e cuidados</x:String>
+                    <x:String>Utilidades e papelaria</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <ListView x:Name="lst_produtos" 
+                  IsPullToRefreshEnabled="True"
+                  Refreshing="lst_produtos_Refreshing"
+                  ItemSelected="lst_produtos_ItemSelected">
             
             <ListView.Header>
-                <Grid ColumnDefinitions="*, *, *, *, *">
+                <Grid ColumnDefinitions="*, *, *, *, *, *">
                     <Label Grid.Column="0" Text="ID" />
                     <Label Grid.Column="1" Text="Descrição" />
                     <Label Grid.Column="2" Text="Preço" />
                     <Label Grid.Column="3" Text="Quantidade" />
                     <Label Grid.Column="4" Text="Total" />
+                    <Label Grid.Column="5" Text="Categoria"/>
                 </Grid>
 
             </ListView.Header>
@@ -29,17 +57,18 @@
                         <ViewCell.ContextActions>
                             <MenuItem Text="Remover" Clicked="MenuItem_Clicked"/>
                          </ViewCell.ContextActions>
-                        <Grid ColumnDefinitions="*, *, *, *, *">
+                        <Grid ColumnDefinitions="*, *, *, *, *, *">
                             <Label Grid.Column="0" Text="{Binding Id}" />
                             <Label Grid.Column="1" Text="{Binding Descricao}" />
-                            <Label Grid.Column="2" Text="{Binding Preco}" />
+                            <Label Grid.Column="2" Text="{Binding Preco,StringFormat='{}{0:c}'}" />
                             <Label Grid.Column="3" Text="{Binding Quantidade}" />
-                            <Label Grid.Column="4" Text="{Binding Total}" />
+                            <Label Grid.Column="4" Text="{Binding Total, StringFormat='{}{0:c}'}"/>
+                            <Label Grid.Column="5" Text="{Binding Categoria}" />
                         </Grid>
                     </ViewCell>
                     
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </VerticalStackLayout>
+    </StackLayout>
 </ContentPage>

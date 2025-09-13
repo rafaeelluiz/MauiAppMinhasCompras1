@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppMinhasCompras1.Views.EditarProduto"
-             Title="{Binding Descicao}">
+             Title="{Binding Descricao}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Salvar" Clicked="ToolbarItem_Clicked"/>
         </ContentPage.ToolbarItems>
@@ -16,7 +16,34 @@
             <Entry x:Name="txt_quantidade" Text="{Binding Quantidade}"/>
 
             <Label Text="Preço unitário: "/>
-            <Entry x:Name="txt_preco" Text="{Binding Preco} " Keyboard="Numeric"/>
-        </VerticalStackLayout>
+            <Entry x:Name="txt_preco" Text="{Binding Preco}" Keyboard="Numeric"/>
+        
+            <Label Text="Categoria: " />
+
+        <Picker  x:Name="pck_categoria"          
+                    Title="Selecione a categoria"
+                    FontAttributes="Bold"
+                    >
+
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Bebês</x:String>
+                    <x:String>Bebidas</x:String>
+                    <x:String>Congelados</x:String>
+                    <x:String>Doces</x:String>
+                    <x:String>Frescos</x:String>
+                    <x:String>Grãos</x:String>
+                    <x:String>Higiene Pessoal</x:String>
+                    <x:String>Limpeza doméstica</x:String>
+                    <x:String>Padaria</x:String>
+                    <x:String>Pets</x:String>
+                    <x:String>Proteínas</x:String>
+                    <x:String>Saúde e cuidados</x:String>
+                    <x:String>Utilidades e papelaria</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+    </VerticalStackLayout>
 
 </ContentPage>
